@@ -2,89 +2,100 @@ import telepot
 import time
 import serial
 import sys
+import os
+from dotenv import *
 
-ser = serial.Serial('/dev/ttyACM0', 11400)
-bot = telepot.Bot('TOKEN')
+load_dotenv()
+token = os.getenv('TOKEN')
+ser = serial.Serial('/dev/ttyACM0', 115200)
+bot = telepot.Bot(token)
 
 print('Bot')
 print('Esperando acciones...')
 
 def handle(msg):
     usuario = msg['from']['first_name']
-
     content_type, chat_type, chat_id = telepot.glance(msg)
 
     if (content_type == 'text'):
         comando = msg['text']
         print('Comando: %s' % comando)
 
-    if '/start' in comando:
-        bot.sendMessage(chat_id, 'Buen día, ',
-            +usuario
-            +"\n"+"Lista de comandos reconocibles: " + "\n"
-            +"Encender luz 1" + "- Enciendo la luz 1.\n"
-            +"Apagar luz 1" + "- Apagar la luz 1.\n"
-            +"Encender luz 2" + "- Enciendo la luz 2.\n"
-            +"Apagar luz 2" + "- Apagar la luz 2.\n" 
-            +"Humedad" + "-Te muestro la humedad en el ambiente.\n"
-            +"Movimiento"
-            + "- Si detecto movimiento, enciendo la luz de alerta.\n"
-            +"Encender todas las luces" + "- Encender todas las luces\n"
-            +"Apagar todas las luces" + "- Apagar todas las luces\n"
-            +"Temperatura" + "- Te muestro la temperatura\n"
-            +"Reporte general"
-            +" - Te muestro el estado de todos los dispositivos"+"\n"
-            +"/start"+" - Lista de comandos."
-        )
+        if '/start' in comando:
+            bot.sendMessage(chat_id, 'Buen dia, '
+                +usuario
+                +"\n"+"Lista de comandos reconocibles: " + "\n"
+                +"Encender luz 1" + "- Enciendo la luz 1.\n"
+                +"Apagar luz 1" + "- Apagar la luz 1.\n"
+                +"Encender luz 2" + "- Enciendo la luz 2.\n"
+                +"Apagar luz 2" + "- Apagar la luz 2.\n" 
+                +"Humedad" + "-Te muestro la humedad en el ambiente.\n"
+                +"Movimiento"
+                + "- Si detecto movimiento, enciendo la luz de alerta.\n"
+                +"Encender todas las luces" + "- Encender todas las luces\n"
+                +"Apagar todas las luces" + "- Apagar todas las luces\n"
+                +"Temperatura" + "- Te muestro la temperatura\n"
+                +"Reporte gene'){ral"
+                +" - Te muestro el estado de todos los dispositivos"+"\n"
+                +"/start"+" - Lista de comandos."
+            )
 
-    elif 'Encender luz 1' in comando:
-        ser.write('l1on')
-        bot.sendMessage(chat_id, "Luz 1 encendida")
+        elif '/led1_on' in comando:
+            ser.write(b'Q')
+            bot.sendMessage(chat_id, "Luz 1 encendida")
 
-    elif 'Apagar luz 1' in comando:
-        ser.write('l1off')
-        bot.sendMessage(chat_id, "Luz 1 apagada")
+        elif '/led1_off' in comando:
+            ser.write(b'W')
+            bot.sendMessage(chat_id, "Luz 1 apagada")
 
-    elif 'Encender luz 2' in comando:
-        ser.write('l2on')
-        bot.sendMessage(chat_id, "Luz 2 encendida")
+        elif '/led2_on' in comando:
+            ser.write(b'E')
+            bot.sendMessage(chat_id, "Luz 2 encendida")
 
-    elif 'Apagar luz 2' in comando:
-        ser.write('l2off')
-        bot.sendMessage(chat_id, "Luz 2 apagada")
+        elif '/led2_off' in comando:
+            ser.write(b'R')
+            bot.sendMessage(chat_id, "Luz 2 apagada")
 
-    elif 'Humedad' in comando:
-        ser.write('hum')
-        line = ser.readline()
-        bot.sendMessage(chat_id, "Humedad: " + line)
+        elif '/led3_on' in comando:
+            ser.write(b'T')
+            bot.sendMessage(chat_id, "Luz 3 encendida")
 
-    elif 'Movimiento' in comando:
-        ser.write('mov')
-        line = ser.readline()
-        bot.sendMessage(chat_id, "Se detectó movimiento a la distancia: " + line)
+        elif '/led3_off' in comando:
+            ser.write(b'Y')
+            bot.sendMessage(chat_id, "Luz 3 apagada")
 
-    elif 'Encender todas las luces' in comando:
-        ser.write('ledson')
-        bot.sendMessage(chat_id, "Todas las luces estan encendidas.")
+        elif '/humedad' in comando:
+            ser.write(b'T')
+            line = ser.readline()
+            bot.sendMessage(chat_id, "Humedad: " + line)
 
-    elif 'Apagar todas las luces' in comando:
-        ser.write('ledsoff')
-        bot.sendMessage(chat_id, "Todas las luces estan apagadas.")
-        
-    elif 'Temperatura' in comando:
-        ser.write('temp')
-        line = ser.readline()
-        bot.sendMessage(chat_id, "Temperatura: " + line)
+        elif '/movimiento' in comando:
+            ser.write(b'Y')
+            line = ser.readline()
+            bot.sendMessage(chat_id, "Se detecto movimiento a la distancia: " + line)
 
-    elif 'Reporte general' in comando:
-        ser.write('report')
-        line = ser.readline()
-        bot.sendMessage(chat_id, "Reporte general: " + line)
+        elif '/leds_on' in comando:
+            ser.write(b'U')
+            bot.sendMessage(chat_id, "Todas las luces estan encendidas.")
 
-    else:
-        bot.sendMessage(chat_id, "Comando inválido.")
+        elif '/leds_off' in comando:
+            ser.write(b'I')
+            bot.sendMessage(chat_id, "Todas las luces estan apagadas.")
+            
+        elif '/temperatura' in comando:
+            ser.write(b'O')
+            line = ser.readline()
+            bot.sendMessage(chat_id, "Temperatura: " + line)
+
+        elif '/reporte' in comando:
+            ser.write(b'P')
+            line = ser.readline()
+            bot.sendMessage(chat_id, "Reporte general: " + line)
+
+        else:
+            bot.sendMessage(chat_id, "Comando invalido.")
 
 bot.message_loop(handle)
 
 while 1:
-    time.sleep(20)
+    time.sleep(100)
