@@ -15,6 +15,7 @@ print('Esperando acciones...')
 
 def handle(msg):
     usuario = msg['from']['first_name']
+    user_id = str(msg['from']['id'])
     content_type, chat_type, chat_id = telepot.glance(msg)
 
     if (content_type == 'text'):
@@ -22,20 +23,24 @@ def handle(msg):
         print('Comando: %s' % comando)
 
         if '/start' in comando:
-            bot.sendMessage(chat_id, 'Buen dia, '
+            bot.sendMessage(chat_id, '¡Hola, '
                 +usuario
-                +"\n"+"Lista de comandos reconocibles: " + "\n"
-                +"Encender luz 1" + "- Enciendo la luz 1.\n"
-                +"Apagar luz 1" + "- Apagar la luz 1.\n"
-                +"Encender luz 2" + "- Enciendo la luz 2.\n"
-                +"Apagar luz 2" + "- Apagar la luz 2.\n" 
-                +"Humedad" + "-Te muestro la humedad en el ambiente.\n"
-                +"Movimiento"
-                + "- Si detecto movimiento, enciendo la luz de alerta.\n"
-                +"Encender todas las luces" + "- Encender todas las luces\n"
-                +"Apagar todas las luces" + "- Apagar todas las luces\n"
-                +"Temperatura" + "- Te muestro la temperatura\n"
-                +"Reporte gene'){ral"
+                +"!\n"
+                +"Tu id es: "+user_id
+                +"\nSoy Domogram, tu bot favorito! :-), te muestro los comandos disponibles: " + "\n"
+                +"/led1_on" + " - Enciendo la luz 1.\n"
+                +"/led1_off" + " - Apagar la luz 1.\n"
+                +"/led2_on" + " - Enciendo la luz 2.\n"
+                +"/led2_off" + " - Apagar la luz 2.\n"
+                +"/led3_on" + " - Enciendo la luz 3.\n"
+                +"/led3_off" + " - Apagar la luz 3.\n"
+                +"/humedad" + " - Te muestro la humedad en el ambiente.\n"
+                +"/movimiento"
+                + " - Si detecto movimiento, enciendo la luz de alerta.\n"
+                +"/leds_on" + " - Encender todas las luces\n"
+                +"/leds_off" + " - Apagar todas las luces\n"
+                +"/temperatura" + " - Te muestro la temperatura\n"
+                +"/reporte"
                 +" - Te muestro el estado de todos los dispositivos"+"\n"
                 +"/start"+" - Lista de comandos."
             )
@@ -94,6 +99,9 @@ def handle(msg):
 
         else:
             bot.sendMessage(chat_id, "Comando invalido.")
+    
+    else:
+        bot.sendMessage(chat_id, "Es un bonito archivo, pero no soy lo suficientemente listo para procesarlo :-(")
 
 bot.message_loop(handle)
 
