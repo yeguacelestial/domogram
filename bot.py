@@ -76,8 +76,8 @@ def handle(msg):
 
         elif '/movimiento' in comando:
             ser.write(b'Y')
-            line = ser.readline()
-            bot.sendMessage(chat_id, "Se detecto movimiento a la distancia: " + str(line))
+            line = str(ser.readline())
+            bot.sendMessage(chat_id, "Se detecto movimiento a la distancia: " + line)
 
         elif '/leds_on' in comando:
             ser.write(b'U')
@@ -89,13 +89,13 @@ def handle(msg):
             
         elif '/temperatura' in comando:
             ser.write(b'O')
-            line = ser.readline()
-            bot.sendMessage(chat_id, "Temperatura: " + str(line))
+            line = str(ser.readline())
+            bot.sendMessage(chat_id, "Temperatura: " + line)
 
         elif '/reporte' in comando:
             ser.write(b'P')
-            line = ser.readline()
-            bot.sendMessage(chat_id, "Reporte general: " + str(line))
+            line = str(ser.readline())
+            bot.sendMessage(chat_id, "Reporte general: " + line)
 
         else:
             bot.sendMessage(chat_id, "Comando invalido.")
