@@ -40,6 +40,10 @@ def handle(msg):
                 +"/leds_on" + " - Encender todas las luces\n"
                 +"/leds_off" + " - Apagar todas las luces\n"
                 +"/temperatura" + " - Te muestro la temperatura\n"
+                +"/abrir_puerta_principal" + " - Abro la puerta principal"
+                +"/cerrar_puerta_principal" + " - Cierro la puerta principal"
+                +"/abrir_puerta_cuarto" + " - Abro la puerta de tu cuarto"
+                +"/cerrar_puerta_cuarto" + " - Cierro la puerta del cuarto"
                 +"/reporte"
                 +" - Te muestro el estado de todos los dispositivos"+"\n"
                 +"/start"+" - Lista de comandos."
@@ -91,6 +95,22 @@ def handle(msg):
             ser.write(b'O')
             line = str(ser.readline())
             bot.sendMessage(chat_id, "Temperatura: " + line)
+
+        elif '/abrir_puerta_principal' in comando:
+            ser.write(b'A')
+            bot.sendMessage(chat_id, "Abri la puerta principal.")
+
+        elif '/cerrar_puerta_principal' in comando:
+            ser.write(b'S')
+            bot.sendMessage(chat_id, "Cerré la puerta principal.")
+
+        elif '/abrir_puerta_cuarto' in comando:
+            ser.write(b'D')
+            bot.sendMessage(chat_id, "Abri la puerta de tu cuarto.")
+
+        elif '/cerrar_puerta_cuarto' in comando:
+            ser.write(b'F')
+            bot.sendMessage(chat_id, "Cerré la puerta de tu cuarto.")
 
         elif '/reporte' in comando:
             ser.write(b'P')
