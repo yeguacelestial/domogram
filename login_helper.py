@@ -22,21 +22,37 @@ def gestion(msg):
         if comando == '/start':
             admin_bot.sendMessage(id_chat, "Hola, " + nombre + "! Tu id es: " + user_id)
         
+        elif comando == '/administradores':
+            admin_bot.sendMessage(id_chat, "Usuarios administradores del bot:\n")
+            conexion = sqlite3.connect("usuarios.db")
+            cursor = conexion.cursor()
+            cursor.execute("SELECT * FROM admins")
+            admins = cursor.fetchall()
+
+            for admin in admins:
+                admin_bot.sendMessage(id_chat, "NOMBRE: " + admin[0] + " - ID: " + str(admin[1]))
+
         else:
             admin_bot.sendMessage(id_chat, "Comando no reconocido.")
 
     else:
         admin_bot.sendMessage(id_chat, 'Soy listo, pero no más que tu. :-c')
 
-    #DB
-    conexion = sqlite3.connect("usuarios.db")
-    cursor = conexion.cursor()
+#DB
+conexion = sqlite3.connect("usuarios.db")
+cursor = conexion.cursor()
 
-    cursor.execute("CREATE TABLE IF NOT EXISTS login" \
-        "(nombre VARCHAR(100), pin INTEGER)")
+#Creacion de tablas y campos
+#Usuarios del bot
+cursor.execute("CREATE TABLE IF NOT EXISTS usuarios" \
+    "(nombre VARCHAR(100), id INTEGER)")
 
-    conexion.commit()
-    conexion.close()
+#Administradores
+cursor.execute("CREATE TABLE IF NOT EXISTS admins" \
+    "(nombre VARCHAR(100), id INTEGER)")
+
+conexion.commit()
+conexion.close()
 
 admin_bot.message_loop(gestion)
 
