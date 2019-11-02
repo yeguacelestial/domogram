@@ -95,6 +95,7 @@ def gestor(msg):
         print("Nombre de usuario: " + str(msg['from']['username']))
         print ("Mensaje: " + msg['text'] + "\n")
 
+    #Si el contenido enviado es texto...
     if tipo_contenido == 'text':
         comando = msg['text']
 
@@ -107,17 +108,22 @@ def gestor(msg):
             testbot.sendMessage(id_chat, "Hola, " + nombre)
             conexion = sqlite3.connect("testdb.db")
             cursor = conexion.cursor()
-            cursor.execute('''
-            CREATE TABLE IF NOT EXISTS usuarios(
-                nombre VARCHAR(100),
-                id INTEGER
-            )
-            ''')
-            cursor.execute("INSERT INTO usuarios (id) VALUES (?)", (id_chat, ))
-            #cursor.execute("INSERT INTO usuarios (nombre) VALUES (?)", ())
-            testbot.sendMessage(id_chat, "Id guardada en la base de datos.")
-            conexion.commit()
-            conexion.close()
+            cursor.execute("SELECT * FROM usuarios")
+            users = cursor.fetchall()
+            users_list = []
+
+            for u in users:
+                users_list.append(str(u[1]))
+
+            if id_user not in users_list:
+                cursor.execute("INSERT INTO usuarios (nombre, id, username) VALUES (?, ?, ?)", (nombre, id_user, username, ))
+                testbot.sendMessage(id_chat, "Datos guardados en la base de datos.")
+                conexion.commit()
+                conexion.close()
+
+            elif id_user in users_list:
+                testbot.sendMessage(id_chat, "Usuario ya registrado.")
+
         
         elif comando == '/fetch_admins':
             base = 'testdb.db'
@@ -127,7 +133,7 @@ def gestor(msg):
             admins = cursor.fetchall()
             testbot.sendMessage(id_chat, "ADMINS:")
             for a in admins:
-                testbot.sendMessage(id_chat, "Nombre: " + a[0] + " - ID: " + str(a[1]))
+                testbot.sendMessage(id_chat, "Nombre: " + a[0] + " - ID: " + str(a[1]) + " - Administrador: @" + a[2])
 
         elif comando == '/fetch_users':
             base = 'testdb.db'
@@ -135,9 +141,9 @@ def gestor(msg):
             cursor = conexion.cursor()
             cursor.execute("SELECT * FROM usuarios")
             users = cursor.fetchall()
-            testbot.sendMessage(id_chat, "USERS:")
+            testbot.sendMessage(id_chat, "Usuarios del bot:")
             for u in users:
-                testbot.sendMessage(id_chat, "Nombre: " + u[0] + " - ID: " + str(u[1]))
+                testbot.sendMessage(id_chat, "Nombre: " + u[0] + " - ID: " + str(u[1]) + " - Usuario: @" + u[2])
 
         else:
             testbot.sendMessage(id_chat, "No entendi, " + nombre)
