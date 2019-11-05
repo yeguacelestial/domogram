@@ -119,6 +119,7 @@ def gestor(msg):
                 + "Tu ID es: " + id_user + "\n"
                 + "Tu usuario: " + username)
 
+            #AGREGAR USUARIOS
             elif comando.startswith('/agregar '):
                 parametro = msg['text'][9:]
 
@@ -139,6 +140,32 @@ def gestor(msg):
                         cursor.execute("INSERT INTO usuarios (username) VALUES (?)", (parametro[1:], ))
                         testbot.sendMessage(id_chat, "He registrado a {}".format(parametro))
                         conexion.commit()
+
+                else:
+                    testbot.sendMessage(id_chat, "Asegurate de que el usuario empiece con @ !")
+                
+            #ELIMINAR USUARIOS
+            elif comando.startswith('/eliminar '):
+                parametro = msg['text'][10:]
+
+                if parametro.startswith('@'):
+                    testbot.sendMessage(id_chat, "Eliminando usuario: " + parametro)
+                    conexion = sqlite3.connect("testdb.db")
+                    cursor = conexion.cursor()
+                    cursor.execute("SELECT (username) FROM usuarios")
+                    users = cursor.fetchall()
+                    users_list = []
+                    for u in users:
+                        users_list.append(str(u[0]))
+
+                    if parametro[1:] in users_list:
+                        cursor.execute("DELETE FROM usuarios WHERE username = ?", (parametro[1:], ))
+                        testbot.sendMessage(id_chat, "He aniquilado a {} del registro.".format(parametro))
+                        conexion.commit()
+                        conexion.close()
+
+                    elif parametro[1:] not in users_list:
+                        testbot.sendMessage(id_chat, "Mi estimadisimo {} no existe en el registro.".format(parametro))
 
                 else:
                     testbot.sendMessage(id_chat, "Envia un usuario correcto, empezando con @.")
@@ -166,11 +193,14 @@ def gestor(msg):
                     else:
                         testbot.sendMessage(id_chat, "Nombre: Sin especificar\nID: Sin especificar\nUsuario: @" + u[2])
 
+            elif comando == '/help' or comando == '/ayuda':
+                testbot.sendMessage(id_chat, "La sección de ayuda estará disponible proximamente.")
+
             else:
                 testbot.sendMessage(id_chat, "No entendi, " + nombre)
     
     else:
-        testbot.sendMessage(id_chat, "Acceso denegado.")
+        testbot.sendMessage(id_chat, "Acceso denegado. No tienes permitido hacer eso!")
 
 #Loop
 testbot.message_loop(gestor)
