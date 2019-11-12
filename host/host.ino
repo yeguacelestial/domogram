@@ -10,6 +10,7 @@ DHT dht(pinDHT, DHTtype);
 const int led1 = 11;
 const int led2 = 2;
 const int led3 = 13;
+const int led_mov = 10;
 
 String estado_led1;
 String estado_led2;
@@ -72,7 +73,7 @@ void loop(){
             }
 
             if (dato == 'Y'){
-                digitalWrite(led2, 0);
+                digitalWrite(led3, 0);
                 estado_led3 = "Luz 3: apagada.";
             }
 
@@ -135,12 +136,12 @@ void loop(){
     distancia = float(tiempo * 0.0343);
 
     if (distancia <= 10){
-        digitalWrite (led3, 1);
+        digitalWrite (led_mov, 1);
         estado_led3 = "Luz de movimiento: ENCENDIDA.";
     }
 
     else {
-        digitalWrite(led3, 0);
+        digitalWrite(led_mov, 0);
         estado_led3 = "Luz de movimiento: APAGADA.";
     }
     

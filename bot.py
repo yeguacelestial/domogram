@@ -3,6 +3,7 @@ import time
 import serial
 import sys
 import os
+import sqlite3
 from dotenv import *
 
 load_dotenv()
@@ -13,6 +14,7 @@ bot = telepot.Bot(token)
 print('Bot')
 print('Esperando acciones...')
 
+#Handle msg
 def handle(msg):
     usuario = msg['from']['first_name']
     user_id = str(msg['from']['id'])
@@ -40,10 +42,10 @@ def handle(msg):
                 +"/leds_on" + " - Encender todas las luces\n"
                 +"/leds_off" + " - Apagar todas las luces\n"
                 +"/temperatura" + " - Te muestro la temperatura\n"
-                +"/abrir_puerta_principal" + " - Abro la puerta principal"
-                +"/cerrar_puerta_principal" + " - Cierro la puerta principal"
-                +"/abrir_puerta_cuarto" + " - Abro la puerta de tu cuarto"
-                +"/cerrar_puerta_cuarto" + " - Cierro la puerta del cuarto"
+                +"/abrir_puerta_principal" + " - Abro la puerta principal\n"
+                +"/cerrar_puerta_principal" + " - Cierro la puerta principal\n"
+                +"/abrir_puerta_cuarto" + " - Abro la puerta de tu cuarto\n"
+                +"/cerrar_puerta_cuarto" + " - Cierro la puerta del cuarto\n"
                 +"/reporte"
                 +" - Te muestro el estado de todos los dispositivos"+"\n"
                 +"/start"+" - Lista de comandos."
