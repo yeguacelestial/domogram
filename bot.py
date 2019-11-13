@@ -36,6 +36,12 @@ def handle(msg):
                 +"/led2_off" + " - Apagar la luz 2.\n"
                 +"/led3_on" + " - Enciendo la luz 3.\n"
                 +"/led3_off" + " - Apagar la luz 3.\n"
+                +"/led4_on" + " - Enciendo la luz 4.\n"
+                +"/led4_off" + " - Apagar la luz 4.\n"
+                +"/led5_on" + " - Enciendo la luz 5.\n"
+                +"/led5_off" + " - Apagar la luz 5.\n"
+                +"/led6_on" + " - Enciendo la luz 6.\n"
+                +"/led6_off" + " - Apagar la luz 6.\n"
                 +"/humedad" + " - Te muestro la humedad en el ambiente.\n"
                 +"/movimiento"
                 + " - Si detecto movimiento, enciendo la luz de alerta.\n"
@@ -74,16 +80,40 @@ def handle(msg):
         elif '/led3_off' in comando:
             ser.write(b'Y')
             bot.sendMessage(chat_id, "Luz 3 apagada")
+        
+        elif '/led4_on' in comando:
+            ser.write(b'G')
+            bot.sendMessage(chat_id, "Luz 4 encendida")
+
+        elif '/led4_off' in comando:
+            ser.write(b'H')
+            bot.sendMessage(chat_id, "Luz 4 apagada")
+
+        elif '/led5_on' in comando:
+            ser.write(b'J')
+            bot.sendMessage(chat_id, "Luz 5 encendida")
+
+        elif '/led5_off' in comando:
+            ser.write(b'K')
+            bot.sendMessage(chat_id, "Luz 5 apagada")
+
+        elif '/led6_on' in comando:
+            ser.write(b'L')
+            bot.sendMessage(chat_id, "Luz 6 encendida")
+
+        elif '/led6_off' in comando:
+            ser.write(b'Z')
+            bot.sendMessage(chat_id, "Luz 6 apagada")
 
         elif '/humedad' in comando:
-            ser.write(b'T')
+            ser.write(b'X')
             line = ser.readline()
-            bot.sendMessage(chat_id, "Humedad: " + str(line))
+            bot.sendMessage(chat_id, b"Humedad: " + line)
 
         elif '/movimiento' in comando:
             ser.write(b'Y')
-            line = str(ser.readline())
-            bot.sendMessage(chat_id, "Se detecto movimiento a la distancia: " + line)
+            line = ser.readline()
+            bot.sendMessage(chat_id, b"Se detecto movimiento a la distancia: " + line)
 
         elif '/leds_on' in comando:
             ser.write(b'U')
@@ -95,8 +125,8 @@ def handle(msg):
             
         elif '/temperatura' in comando:
             ser.write(b'O')
-            line = str(ser.readline())
-            bot.sendMessage(chat_id, "Temperatura: " + line)
+            line = ser.readline()
+            bot.sendMessage(chat_id, b"Temperatura: " + line)
 
         elif '/abrir_puerta_principal' in comando:
             ser.write(b'A')
