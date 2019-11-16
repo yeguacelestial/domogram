@@ -1,7 +1,6 @@
 import sqlite3
 import telepot
 import os
-from acceso_helper import TablasDB
 import time
 from dotenv import *
 from collections import defaultdict
