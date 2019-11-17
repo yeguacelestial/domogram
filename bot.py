@@ -66,10 +66,8 @@ def handle(msg):
                         +"/leds_on" + " - Encender todas las luces\n"
                         +"/leds_off" + " - Apagar todas las luces\n"
                         +"/temperatura" + " - Te muestro la temperatura\n"
-                        +"/abrir_puerta_principal" + " - Abro la puerta principal\n"
-                        +"/cerrar_puerta_principal" + " - Cierro la puerta principal\n"
-                        +"/abrir_puerta_cuarto" + " - Abro la puerta de tu cuarto\n"
-                        +"/cerrar_puerta_cuarto" + " - Cierro la puerta del cuarto\n"
+                        +"/abrir" + " - Abro las divisiones de la casa\n"
+                        +"/cerrar" + " - Cierro las divisiones de la casa\n"
                         +"/reporte"
                         +" - Te muestro el estado de todos los dispositivos"+"\n"
                         +"/start"+" - Te vuelvo a mostrar este mensaje."
@@ -146,21 +144,13 @@ def handle(msg):
                     line = ser.readline()
                     bot.sendMessage(chat_id, b"Temperatura: " + line)
 
-                elif '/abrir_puerta_principal' in comando:
+                elif '/abrir' in comando:
                     ser.write(b'A')
-                    bot.sendMessage(chat_id, "Abri la puerta principal.")
+                    bot.sendMessage(chat_id, "Abrí la casa.")
 
-                elif '/cerrar_puerta_principal' in comando:
+                elif '/cerrar' in comando:
                     ser.write(b'S')
-                    bot.sendMessage(chat_id, "Cerré la puerta principal.")
-
-                elif '/abrir_puerta_cuarto' in comando:
-                    ser.write(b'D')
-                    bot.sendMessage(chat_id, "Abri la puerta de tu cuarto.")
-
-                elif '/cerrar_puerta_cuarto' in comando:
-                    ser.write(b'F')
-                    bot.sendMessage(chat_id, "Cerré la puerta de tu cuarto.")
+                    bot.sendMessage(chat_id, "Cerré la casa.")
 
                 elif '/reporte' in comando:
                     ser.write(b'P')
