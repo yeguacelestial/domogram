@@ -41,85 +41,60 @@ def handle(msg):
             if username in users_list:
                 if '/start' in comando:
                     bot.sendMessage(chat_id, 'Nombre de usuario: @{}'.format(username))
-                    bot.sendMessage(chat_id, '🤓Verificando si estás en la base de datos...🤓')
                     bot.sendMessage(chat_id, '¡Tienes acceso! 👍')
                     bot.sendMessage(chat_id, '¡Hola, '
                         +usuario
-                        +"!\n"
-                        +"Tu id es: "+user_id
-                        +"\nSoy Domogram, tu bot favorito! 😀😀😀, te muestro los comandos disponibles: " + "\n"
-                        +"/led1_on" + " - Enciendo la luz 1.\n"
-                        +"/led1_off" + " - Apagar la luz 1.\n"
-                        +"/led2_on" + " - Enciendo la luz 2.\n"
-                        +"/led2_off" + " - Apagar la luz 2.\n"
-                        +"/led3_on" + " - Enciendo la luz 3.\n"
-                        +"/led3_off" + " - Apagar la luz 3.\n"
-                        +"/led4_on" + " - Enciendo la luz 4.\n"
-                        +"/led4_off" + " - Apagar la luz 4.\n"
-                        +"/led5_on" + " - Enciendo la luz 5.\n"
-                        +"/led5_off" + " - Apagar la luz 5.\n"
-                        +"/led6_on" + " - Enciendo la luz 6.\n"
-                        +"/led6_off" + " - Apagar la luz 6.\n"
-                        +"/humedad" + " - Te muestro la humedad en el ambiente.\n"
-                        +"/movimiento"
-                        + " - Si detecto movimiento, enciendo la luz de alerta.\n"
-                        +"/leds_on" + " - Encender todas las luces\n"
-                        +"/leds_off" + " - Apagar todas las luces\n"
-                        +"/temperatura" + " - Te muestro la temperatura\n"
-                        +"/abrir" + " - Abro las divisiones de la casa\n"
-                        +"/cerrar" + " - Cierro las divisiones de la casa\n"
-                        +"/reporte"
-                        +" - Te muestro el estado de todos los dispositivos"+"\n"
-                        +"/start"+" - Te vuelvo a mostrar este mensaje."
+                        +"! 🤓🤓🤓\n"
+                        +"Soy Domogram, tu bot favorito! 😀😀😀"
                     )
 
-                elif '/led1_on' in comando:
+                elif '/cuarto_on' in comando:
                     ser.write(b'Q')
-                    bot.sendMessage(chat_id, "Luz 1 encendida")
+                    bot.sendMessage(chat_id, "La luz del cuarto está encendida 🧐")
 
-                elif '/led1_off' in comando:
+                elif '/cuarto_off' in comando:
                     ser.write(b'W')
-                    bot.sendMessage(chat_id, "Luz 1 apagada")
+                    bot.sendMessage(chat_id, "La luz del cuarto está apagada")
 
-                elif '/led2_on' in comando:
+                elif '/estancia_on' in comando:
                     ser.write(b'E')
-                    bot.sendMessage(chat_id, "Luz 2 encendida")
+                    bot.sendMessage(chat_id, "La luz de la estancia está encendida 🧐")
 
-                elif '/led2_off' in comando:
+                elif '/estancia_off' in comando:
                     ser.write(b'R')
-                    bot.sendMessage(chat_id, "Luz 2 apagada")
+                    bot.sendMessage(chat_id, "La luz de la estancia está apagada")
 
-                elif '/led3_on' in comando:
+                elif '/bano_on' in comando:
                     ser.write(b'T')
-                    bot.sendMessage(chat_id, "Luz 3 encendida")
+                    bot.sendMessage(chat_id, "La luz del baño está encendida 🧐")
 
-                elif '/led3_off' in comando:
+                elif '/bano_off' in comando:
                     ser.write(b'Y')
-                    bot.sendMessage(chat_id, "Luz 3 apagada")
+                    bot.sendMessage(chat_id, "La luz del baño está apagada")
                 
-                elif '/led4_on' in comando:
+                elif '/cocina_on' in comando:
                     ser.write(b'G')
-                    bot.sendMessage(chat_id, "Luz 4 encendida")
+                    bot.sendMessage(chat_id, "La luz de la cocina está encendida 🧐")
 
-                elif '/led4_off' in comando:
+                elif '/cocina_off' in comando:
                     ser.write(b'H')
-                    bot.sendMessage(chat_id, "Luz 4 apagada")
+                    bot.sendMessage(chat_id, "La luz de la cocina está apagada")
 
-                elif '/led5_on' in comando:
+                elif '/entrada_on' in comando:
                     ser.write(b'J')
-                    bot.sendMessage(chat_id, "Luz 5 encendida")
+                    bot.sendMessage(chat_id, "La luz de la entrada está encendida 🧐")
 
-                elif '/led5_off' in comando:
+                elif '/entrada_off' in comando:
                     ser.write(b'K')
-                    bot.sendMessage(chat_id, "Luz 5 apagada")
+                    bot.sendMessage(chat_id, "La luz de la entrada está apagada")
 
-                elif '/led6_on' in comando:
+                elif '/comedor_on' in comando:
                     ser.write(b'L')
-                    bot.sendMessage(chat_id, "Luz 6 encendida")
+                    bot.sendMessage(chat_id, "La luz del comedor está encendida 🧐")
 
-                elif '/led6_off' in comando:
+                elif '/comedor_off' in comando:
                     ser.write(b'Z')
-                    bot.sendMessage(chat_id, "Luz 6 apagada")
+                    bot.sendMessage(chat_id, "La luz del comedor está apagada")
 
                 elif '/humedad' in comando:
                     ser.write(b'X')
@@ -131,11 +106,11 @@ def handle(msg):
                     line = ser.readline()
                     bot.sendMessage(chat_id, b"Se detecto movimiento a la distancia: " + line)
 
-                elif '/leds_on' in comando:
+                elif '/casa_on' in comando:
                     ser.write(b'U')
-                    bot.sendMessage(chat_id, "Todas las luces estan encendidas.")
+                    bot.sendMessage(chat_id, "Todas las luces estan encendidas. 🧐🧐🧐")
 
-                elif '/leds_off' in comando:
+                elif '/casa_off' in comando:
                     ser.write(b'I')
                     bot.sendMessage(chat_id, "Todas las luces estan apagadas.")
                     
@@ -146,7 +121,7 @@ def handle(msg):
 
                 elif '/abrir' in comando:
                     ser.write(b'A')
-                    bot.sendMessage(chat_id, "Abrí la casa.")
+                    bot.sendMessage(chat_id, "Abrí la casa. 🧐")
 
                 elif '/cerrar' in comando:
                     ser.write(b'S')
@@ -160,8 +135,8 @@ def handle(msg):
                 else:
                     bot.sendMessage(chat_id, "🤣🤣🤣 Comando invalido bro 💩💩💩")
             else:
-                bot.sendMessage(chat_id, 'Acceso denegado. No estas registrado en la base de datos...😕😕😕')
-                bot.sendMessage(chat_id, 'Sugiero que contactes al administrador del bot: @hombrecelestial 🧐🧐🧐')
+                bot.sendMessage(chat_id, 'No tienes acceso al bot 😕😕😕')
+                bot.sendMessage(chat_id, 'Sugiero que contactes al administrador: @hombrecelestial 🧐🧐🧐')
     
     else:
         bot.sendMessage(chat_id, "Bien jugado...no sé como reaccionar ante eso 🙃🙃🙃")
