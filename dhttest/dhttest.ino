@@ -5,7 +5,7 @@
 
 DHT dht(DHT_PIN, DHT_TYPE);
 void setup(){
-    Serial.begin(9600);
+    Serial.begin(115200);
     delay(500);
     Serial.println("DHT11 Humedad y Temperatura\n\n");
     delay(1000);

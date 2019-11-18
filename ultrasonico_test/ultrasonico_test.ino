@@ -13,7 +13,6 @@ void setup(){
 }
 
 void loop(){
-
     long t;
     long d;
     

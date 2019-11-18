@@ -104,7 +104,7 @@ def handle(msg):
                 elif '/movimiento' in comando:
                     ser.write(b'V')
                     line = ser.readline()
-                    bot.sendMessage(chat_id, b"Se detecto movimiento a la distancia: " + line)
+                    bot.sendMessage(chat_id, b"Se detecto movimiento a la distancia: " + line + b"cm.")
 
                 elif '/casa_on' in comando:
                     ser.write(b'U')

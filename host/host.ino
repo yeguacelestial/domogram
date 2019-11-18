@@ -5,8 +5,8 @@
 #define DHTtype DHT11
 
 //OBJETOS SERVOMOTORES
-Servo miServo1;
-Servo miServo2;
+Servo servoDerecha;
+Servo servoIzquierda;
 
 int pos = 0;
 
@@ -14,8 +14,8 @@ int pos = 0;
 DHT dht(pinDHT, DHTtype);
 
 //Pines SERVOMOTORES
-const int servo1 = 8;
-const int servo2 = 9;
+const int pinServoDer = 8;
+const int pinServoIzq = 9;
 
 //Leds
 const int led1 = 2;
@@ -55,8 +55,14 @@ void setup(){
         pinMode(EchoPin, INPUT);
         digitalWrite(TriggerPin, LOW);
         dht.begin();
-        miServo1.attach(servo1);
-        miServo2.attach(servo2);
+        servoDerecha.attach(pinServoDer);
+        servoIzquierda.attach(pinServoIzq);
+
+        //POS INICIAL SERVOMOTORES
+            //SERVO DERECHA 
+            servoDerecha.write(0);
+            //SERVO IZQUIERDA 
+            servoIzquierda.write(180);
 }
 
 void loop(){
@@ -183,17 +189,17 @@ void loop(){
             //ABRIR LA CASA
             if (dato=='A'){
                 for (pos = 0; pos <= 90; pos++){
-                    miServo1.write(pos);
-                    miServo2.write(pos);
+                    servoIzquierda.write(180-pos);
+                    servoDerecha.write(pos);
                     delay(50);
                 }
             }
 
             //CERRAR LA CASA
             if(dato=='S'){
-                for (pos = 90; pos >= 0; pos--){
-                    miServo1.write(pos);
-                    miServo2.write(pos);
+                for (pos = 0; pos <= 90; pos++){
+                    servoIzquierda.write(90+pos);
+                    servoDerecha.write(90-pos);
                     delay(50);
                 }
             }
