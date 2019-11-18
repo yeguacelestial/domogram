@@ -29,7 +29,7 @@ def handle(msg):
 
         else:
             username = msg['from']['username']
-            base = 'testdb.db'
+            base = 'users.db'
             conexion = sqlite3.connect(base)
             cursor = conexion.cursor()
             cursor.execute("SELECT * FROM usuarios")

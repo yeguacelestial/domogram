@@ -10,7 +10,7 @@ token_test = os.getenv('TOKEN_ADMIN')
 testbot = telepot.Bot(token_test)
 
 #Config db
-base = 'testdb.db'
+base = 'users.db'
 conexion = sqlite3.connect(base)
 cursor = conexion.cursor()
 
@@ -78,7 +78,7 @@ def gestor(msg):
     else:    
         username = msg['from']['username']
 
-    base = 'testdb.db'
+    base = 'users.db'
     conexion = sqlite3.connect(base)
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM usuarios")
@@ -124,7 +124,7 @@ def gestor(msg):
 
                 if parametro.startswith('@'):
                     testbot.sendMessage(id_chat, "Usuario: " + parametro)
-                    conexion = sqlite3.connect("testdb.db")
+                    conexion = sqlite3.connect("users.db")
                     cursor = conexion.cursor()
                     cursor.execute("SELECT (username) FROM usuarios")
                     users = cursor.fetchall()
@@ -149,7 +149,7 @@ def gestor(msg):
 
                 if parametro.startswith('@'):
                     testbot.sendMessage(id_chat, "Eliminando usuario: " + parametro)
-                    conexion = sqlite3.connect("testdb.db")
+                    conexion = sqlite3.connect("users.db")
                     cursor = conexion.cursor()
                     cursor.execute("SELECT (username) FROM usuarios")
                     users = cursor.fetchall()
@@ -171,7 +171,7 @@ def gestor(msg):
 
             
             elif comando == '/admins':
-                base = 'testdb.db'
+                base = 'users.db'
                 conexion = sqlite3.connect(base)
                 cursor = conexion.cursor()
                 cursor.execute("SELECT * FROM admins")
@@ -180,7 +180,7 @@ def gestor(msg):
                     testbot.sendMessage(id_chat, "Nombre: " + a[0] + " - ID: " + str(a[1]) + " - Administrador: @" + a[2])
 
             elif comando == '/usuarios':
-                base = 'testdb.db'
+                base = 'users.db'
                 conexion = sqlite3.connect(base)
                 cursor = conexion.cursor()
                 cursor.execute("SELECT * FROM usuarios")
