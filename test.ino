@@ -43,27 +43,44 @@ void setup()
 void loop()
 {
     // LEDS
-    // for (int x = 2; x <= 7; x++)
-    // {
-    //     digitalWrite(x, HIGH);
-    //     delay(1000);
-    //     digitalWrite(x, LOW);
-    // }
+    // test_leds();
 
     // Sensor de temperatura y humedad
-    // Serial.println(dht.readTemperature() + String("°C"));
-    // Serial.println(dht.readHumidity() + String("%"));
-    // delay(1000);
+    // test_dht();
 
-    // Sensor de movimiento
-    // int cm = ping(TriggerPin, EchoPin);
-    // Serial.println(String("DISTANCIA => ") + cm);
-    // delay(1000);
+    // Sensor ultrasonico
+    // test_ultrasonico();
 
-    // Servomotores
+    // TODO - Servomotores
+}
+
+// Leds
+int test_leds()
+{
+    for (int x = 2; x <= 7; x++)
+    {
+        digitalWrite(x, HIGH);
+        delay(1000);
+        digitalWrite(x, LOW);
+    }
+}
+
+// Sensor de temperatura y humedad
+int test_dht()
+{
+    Serial.println(dht.readTemperature() + String("°C"));
+    Serial.println(dht.readHumidity() + String("%"));
+    delay(1000);
 }
 
 // Sensor ultrasonico
+int test_ultrasonico()
+{
+    int cm = ping(TriggerPin, EchoPin);
+    Serial.println(String("DISTANCIA => ") + cm + String("cm"));
+    delay(1000);
+}
+
 int ping(int TriggerPin, int EchoPin)
 {
     long duration, distanceCm;
